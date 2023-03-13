@@ -25,6 +25,8 @@ form.addEventListener("submit", (evento) => {
     itemAtual.id = existe.id;
 
     atualizaElemento(itemAtual);
+
+    itens[existe.id] = itemAtual;
   } else {
     itemAtual.id = itens.length;
     criaElemento(itemAtual); //executar função criar elemento com o array atual
@@ -48,9 +50,27 @@ function criaElemento(item) {
 
   numeroItem.dataset.id = item.id;
   novoItem.innerHTML += item.nome; //adicionando li com a variavel nome do item atual
+
+  novoItem.appendChild(botaoDeleta());
+
   lista.appendChild(novoItem); //adicionando li dentro da lista
 }
 
 function atualizaElemento(item) {
   document.querySelector("[data-id='" + item.id + "']").innerHTML = item.quantidade;
+}
+
+function botaoDeleta() {
+  const elementoBotao = document.createElement("button");
+  elementoBotao.innerText = "X";
+
+  elementoBotao.addEventListener("click", function () {
+    deletaElemento(this.parentNode);
+  });
+
+  return elementoBotao;
+}
+
+function deletaElemento(tag) {
+  tag.remove();
 }
